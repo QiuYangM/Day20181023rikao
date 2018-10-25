@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/home_banner"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/home_btimg_left"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right|center"
+                android:layout_margin="5dp"
+                android:layout_weight="1.2"
+                android:src="@drawable/scan_w" />
+
+            <EditText
+                android:id="@+id/home_edix"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="8"
+                android:background="@drawable/ed_bg"
+                android:hint="请输入商品信息"
+                android:textColorHint="#FFFFFF"/>
+
+            <ImageView
+                android:id="@+id/home_btimg_right"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="left|center"
+                android:layout_margin="5dp"
+                android:layout_weight="1.2"
+                android:src="@drawable/home_message" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/home_top"
+        android:layout_marginTop="10dp"
+        android:background="#E8E8E8"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_recy_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_pager" />
+</RelativeLayout>
