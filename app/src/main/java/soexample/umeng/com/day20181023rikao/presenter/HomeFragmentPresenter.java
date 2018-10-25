@@ -20,6 +20,7 @@ import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 import soexample.umeng.com.day20181023rikao.R;
+import soexample.umeng.com.day20181023rikao.activity.SearchActivity;
 import soexample.umeng.com.day20181023rikao.adpter.HomeGridAdpter;
 import soexample.umeng.com.day20181023rikao.adpter.HomeViewPager;
 import soexample.umeng.com.day20181023rikao.adpter.ShopListItemAdpter;
@@ -57,7 +58,7 @@ public class HomeFragmentPresenter extends AppCreateimp implements View.OnClickL
         mBGABanner = get(R.id.home_banner);
         mViewPager = get(R.id.view_pager);
         mRecyclerView = get(R.id.home_recy_button);
-        setOnClick(this, R.id.home_btimg_left, R.id.home_btimg_right);
+        setOnClick(this, R.id.home_btimg_left, R.id.home_btimg_right, R.id.home_edix);
         getString(Http.luoUrl, 0);
         getString(Http.ListLfteUrl, 1);
         getString(Http.HTTP_SHOP_LIST, 2);
@@ -130,6 +131,9 @@ public class HomeFragmentPresenter extends AppCreateimp implements View.OnClickL
                 break;
             case R.id.home_btimg_right://右边的消息
                 tost("亲（@-_-@）您没有任何消息");
+                break;
+            case R.id.home_edix:
+                context.startActivity(new Intent(context, SearchActivity.class));
                 break;
         }
 

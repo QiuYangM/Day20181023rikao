@@ -26,8 +26,8 @@
 
     <LinearLayout
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:orientation="vertical">
 
         <TextView
@@ -48,6 +48,10 @@
             android:text="asdasdas"
             android:textSize="20dp" />
 
+        <soexample.umeng.com.day20181023rikao.cview.EdView
+            android:id="@+id/shopcar_edview"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
     </LinearLayout>
 
 </LinearLayout>

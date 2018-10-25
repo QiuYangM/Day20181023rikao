@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/cview_plus"
+        android:src="@drawable/plus"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+    <EditText
+        android:layout_toRightOf="@id/cview_plus"
+        android:id="@+id/cview_ed"
+        android:textColorHint="#FF0000"
+        android:layout_width="60dp"
+        android:layout_height="50dp" />
+    <ImageView
+        android:layout_toRightOf="@id/cview_ed"
+        android:id="@+id/cview_minus"
+        android:src="@drawable/minus"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+</RelativeLayout>

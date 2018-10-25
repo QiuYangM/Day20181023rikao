@@ -54,13 +54,44 @@ public class ShopCarFragmentPresenter extends AppCreateimp implements View.OnCli
                 ShopCarBean shopCarBean = new Gson().fromJson(data, ShopCarBean.class);
                 list = shopCarBean.getData();
                 //设置适配器
-                shopListItemAdpter = new ShopListItemAdpter(context,0);
+                shopListItemAdpter = new ShopListItemAdpter(context, 0);
                 shopListItemAdpter.setList(list);
                 mRecyclerView.setAdapter(shopListItemAdpter);
                 //设置管理器
                 LinearLayoutManager manager = new LinearLayoutManager(context);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 mRecyclerView.setLayoutManager(manager);
+                //获取状态
+                shopListItemAdpter.setState(new ShopListItemAdpter.ShopCallBack() {
+                    @Override
+                    public void callback(List<ShopCarBean.DataBean> list) {
+
+                        double alprice = 0;
+                        int num = 0;
+                        int numAll = 0;
+                        for (int i = 0; i < list.size(); i++) {
+                            List<ShopCarBean.DataBean.ListBean> listAll = list.get(i).getList();
+                            for (int j = 0; j < listAll.size(); j++) {
+                                numAll = listAll.get(j).getNum();
+                                if (listAll.get(j).isIscheck()) {//获取选中状态
+                                    alprice = alprice + (listAll.get(j).getPrice() * listAll.get(j).getNum());
+                                    num = num + listAll.get(j).getNum();
+                                }
+                            }
+
+                        }
+                        //判断
+                        if (num < numAll) {
+                            imgs.setImageResource(R.drawable.cricle_yes);
+                            isCheck = false;
+                        } else {
+                            imgs.setImageResource(R.drawable.cricle_no);
+                            isCheck = true;
+                        }
+                        allPrice.setText("合计:" + alprice);
+                        allNum.setText("去结算(" + num + ")");
+                    }
+                });
                 break;
         }
     }
@@ -97,8 +128,8 @@ public class ShopCarFragmentPresenter extends AppCreateimp implements View.OnCli
                     = list.get(i).getList();
             for (int j = 0; j < list1.size(); j++) {
                 list1.get(j).setIscheck(isc);
-                alprice = alprice + list1.get(j).getPrice();
-                num++;
+                alprice = alprice + (list1.get(j).getPrice() * list1.get(j).getNum());
+                num = num + list1.get(j).getNum();
             }
         }
 
@@ -111,8 +142,6 @@ public class ShopCarFragmentPresenter extends AppCreateimp implements View.OnCli
             allPrice.setText("合计:0.00");
             allNum.setText("去结算(0)");
         }
-
-
         shopListItemAdpter.notifyDataSetChanged();
     }
 }

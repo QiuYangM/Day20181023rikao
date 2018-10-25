@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import soexample.umeng.com.day20181023rikao.R;
+import soexample.umeng.com.day20181023rikao.cview.EdView;
 import soexample.umeng.com.day20181023rikao.model.ShopCarBean;
 
 public class ShopListItemAdpterChild extends RecyclerView.Adapter<ShopListItemAdpterChild.MyViewhoder> {
@@ -61,6 +62,7 @@ public class ShopListItemAdpterChild extends RecyclerView.Adapter<ShopListItemAd
                         list.get(position).setIscheck(true);
                     }
                     notifyItemChanged(position);
+                    shopCallBack.callback();
                 }
             });
         }
@@ -68,8 +70,14 @@ public class ShopListItemAdpterChild extends RecyclerView.Adapter<ShopListItemAd
         holder.mPrice.setText(list.get(position).getPrice() + "");
         Glide.with(context).load(list.get(position).
                 getImages().replace("https", "http").split("\\|")[0]).into(holder.imgBg);
-
-
+        //设置自定义view里面的数据
+        holder.viewById.setData(this,list,position);
+        holder.viewById.result(new EdView.EdCallBack() {
+            @Override
+            public void calBack() {
+                shopCallBack.callback();
+            }
+        });
     }
 
     @Override
@@ -82,7 +90,7 @@ public class ShopListItemAdpterChild extends RecyclerView.Adapter<ShopListItemAd
         ImageView imgBg;
         ImageView ischeck;
         LinearLayout mLinearLayout;
-
+        EdView viewById;
         public MyViewhoder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.item_child_title);
@@ -90,6 +98,15 @@ public class ShopListItemAdpterChild extends RecyclerView.Adapter<ShopListItemAd
             imgBg = itemView.findViewById(R.id.item_child_img);
             ischeck = itemView.findViewById(R.id.item_no_check);
             mLinearLayout = itemView.findViewById(R.id.shop_car_layout);
+            viewById = itemView.findViewById(R.id.shopcar_edview);
         }
+    }
+    private ShopCallBack shopCallBack;
+
+    public void setState(ShopCallBack shopCallBack) {
+        this.shopCallBack = shopCallBack;
+    }
+    public interface ShopCallBack{
+        void callback();
     }
 }

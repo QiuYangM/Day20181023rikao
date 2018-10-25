@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.squareup.okhttp.RequestBody;
 
 import soexample.umeng.com.day20181023rikao.net.OkHttps;
+import soexample.umeng.com.day20181023rikao.net.OkHttpss;
 
 public abstract class AppCreateimp implements AppCreate {
 
@@ -35,7 +36,6 @@ public abstract class AppCreateimp implements AppCreate {
     public void initContext(Context context) {
 
     }
-
     //get请求
     @Override
     public void getString(String url, final int type) {

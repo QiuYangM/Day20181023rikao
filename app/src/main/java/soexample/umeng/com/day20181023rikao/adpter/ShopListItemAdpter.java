@@ -21,7 +21,7 @@ import soexample.umeng.com.day20181023rikao.model.ShopCarBean;
 
 public class ShopListItemAdpter extends RecyclerView.Adapter<ShopListItemAdpter.MyViewhoder> {
 
-    private List<ShopCarBean.DataBean> listf = new ArrayList<>();
+    private List<ShopCarBean.DataBean> list = new ArrayList<>();
     private Context context;
     private int i = 1;
 
@@ -40,32 +40,38 @@ public class ShopListItemAdpter extends RecyclerView.Adapter<ShopListItemAdpter.
 
     @Override
     public void onBindViewHolder(@NonNull ShopListItemAdpter.MyViewhoder holder, int position) {
-        holder.mTextView.setText(listf.get(position).getSellerName());
-        List<ShopCarBean.DataBean.ListBean> list = listf.get(position).getList();
+        holder.mTextView.setText(list.get(position).getSellerName());
+        final List<ShopCarBean.DataBean.ListBean> data = list.get(position).getList();
 
         //每个item的适配器
-        ShopListItemAdpterChild child =null;
+        ShopListItemAdpterChild child = null;
         StaggeredGridLayoutManager manager = null;
         //给他设置管理器
         if (i == 1) {
-            child  = new ShopListItemAdpterChild(context, list,1);
+            child = new ShopListItemAdpterChild(context, data, 1);
             manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             holder.mRecyclerView.setLayoutManager(manager);
         } else {
-            child  = new ShopListItemAdpterChild(context, list,0);
+            child = new ShopListItemAdpterChild(context, data, 0);
             LinearLayoutManager managers = new LinearLayoutManager(context);
             holder.mRecyclerView.setLayoutManager(managers);
         }
         holder.mRecyclerView.setAdapter(child);
+        child.setState(new ShopListItemAdpterChild.ShopCallBack() {
+            @Override
+            public void callback() {
+                shopCallBack.callback(list);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return listf.size();
+        return list.size();
     }
 
     public void setList(List<ShopCarBean.DataBean> list) {
-        this.listf = list;
+        this.list = list;
         notifyDataSetChanged();
     }
 
@@ -80,5 +86,15 @@ public class ShopListItemAdpter extends RecyclerView.Adapter<ShopListItemAdpter.
             mRecyclerView = itemView.findViewById(R.id.shop_item_recy_view);
 
         }
+    }
+
+    private ShopCallBack shopCallBack;
+
+    public void setState(ShopCallBack shopCallBack) {
+        this.shopCallBack = shopCallBack;
+    }
+
+    public interface ShopCallBack {
+        void callback(List<ShopCarBean.DataBean> list);
     }
 }
